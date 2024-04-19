@@ -7,7 +7,6 @@ GtkWidget *category_combo;
 GtkWidget *expense_scrolled_window;
 GtkWidget *delete_button;
 GtkListStore *store;
-extern GtkWidget *expense_entry;
 const gchar *categories[] = {"Groceries", "Transportation", "Entertainment", "Utilities"};
 
 GtkWidget *create_main_window() {
