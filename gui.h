@@ -24,8 +24,9 @@ void on_delete_clicked(GtkButton *button, gpointer data);
 void on_clear_all_clicked(GtkButton *button, gpointer data);
 void load_expenses_from_csv();
 void save_expenses_to_csv();
-void on_category_changed(GtkComboBox *widget, gpointer user_data);
-void on_dialog_response(GtkDialog *dialog, gint response_id, gpointer user_data);
 void on_sort_by_category_clicked(GtkButton *button, gpointer data);
+void on_stats_clicked(GtkButton *button, gpointer data);
+void on_category_changed(GtkComboBox *combo_box, gpointer user_data);
+
 
 #endif /* GUI_H */
