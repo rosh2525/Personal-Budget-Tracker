@@ -319,6 +319,7 @@ void on_stats_clicked(GtkButton *button, gpointer data) {
                 // Convert the category to lowercase for comparison
                 gchar *category_lowercase = g_ascii_strdown(trimmed_category, -1);
 
+                gboolean found = FALSE;
                 // Find the category index
                 for (int i = 0; i < G_N_ELEMENTS(categories); ++i) {
                     // Convert predefined category to lowercase for comparison
@@ -326,9 +327,18 @@ void on_stats_clicked(GtkButton *button, gpointer data) {
                     if (g_strcmp0(category_lowercase, current_category_lowercase) == 0) {
                         // Add the price to the total expense for this category
                         total_expenses[i] += atof(price);
+                        found = TRUE;
                         break;
                     }
                     g_free(current_category_lowercase);
+                }
+
+                // If category not found in predefined categories, add it
+                if (!found) {
+                    // Add the category to the list of categories
+                    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(category_combo), trimmed_category);
+                    // Add the expense to the newly added category
+                    total_expenses[G_N_ELEMENTS(categories) - 1] += atof(price);
                 }
 
                 // Free memory
@@ -359,7 +369,7 @@ void on_stats_clicked(GtkButton *button, gpointer data) {
         gtk_box_pack_start(GTK_BOX(hbox), category_label, FALSE, FALSE, 0);
 
         // Create a label for total expense
-        gchar *stats_text = g_strdup_printf("Total Expense: $%.2f", total_expenses[i]);
+        gchar *stats_text = g_strdup_printf("Total Expense: %.2f", total_expenses[i]);
         GtkWidget *expense_label = gtk_label_new(stats_text);
         g_free(stats_text);
         gtk_box_pack_end(GTK_BOX(hbox), expense_label, FALSE, FALSE, 0);
